@@ -1,0 +1,85 @@
+{
+  "name": "taller.sh // Open Blueprint #03 — URL-Deduplicated Multi-Tenant Content Mill",
+  "meta": {
+    "agency": "https://taller.sh",
+    "stack": "n8n + PostgreSQL 16 + OpenRouter + Telegram",
+    "schema_sql": "CREATE TABLE IF NOT EXISTS processed_sources (source_url TEXT PRIMARY KEY, tenant_slug TEXT NOT NULL, published_at TIMESTAMPTZ DEFAULT NOW());"
+  },
+  "nodes": [
+    {
+      "id": "1",
+      "name": "01. Morning Cron Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [220, 300],
+      "parameters": {
+        "rule": {
+          "interval": [{ "field": "hours", "hoursInterval": 6 }]
+        }
+      }
+    },
+    {
+      "id": "2",
+      "name": "02. Fetch Niche RSS / Source Feed",
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1,
+      "position": [460, 300],
+      "parameters": {
+        "url": "https://news.ycombinator.com/rss"
+      }
+    },
+    {
+      "id": "3",
+      "name": "03. PostgreSQL Deduplication Check",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [700, 300],
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "INSERT INTO processed_sources (source_url, tenant_slug) VALUES ($1, 'default') ON CONFLICT (source_url) DO NOTHING RETURNING source_url;",
+        "options": {
+          "queryReplacement": "={{ [$json.link] }}"
+        }
+      }
+    },
+    {
+      "id": "4",
+      "name": "04. OpenRouter Editorial Draft Agent",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [960, 300],
+      "parameters": {
+        "method": "POST",
+        "url": "https://openrouter.ai/api/v1/chat/completions",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"model\": \"anthropic/claude-3.5-sonnet\",\n  \"messages\": [\n    {\"role\": \"system\", \"content\": \"Draft a concise 5-slide technical carousel summary in plain JSON.\"},\n    {\"role\": \"user\", \"content\": $json.source_url}\n  ]\n}"
+      }
+    },
+    {
+      "id": "5",
+      "name": "05. Telegram Crew Completion Report",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [1220, 300],
+      "parameters": {
+        "chatId": "={{ $env.TELEGRAM_CREW_CHAT_ID }}",
+        "text": "=taller.sh Content Mill // New deduplicated asset drafted and queued."
+      }
+    }
+  ],
+  "connections": {
+    "01. Morning Cron Trigger": {
+      "main": [[{ "node": "02. Fetch Niche RSS / Source Feed", "type": "main", "index": 0 }]]
+    },
+    "02. Fetch Niche RSS / Source Feed": {
+      "main": [[{ "node": "03. PostgreSQL Deduplication Check", "type": "main", "index": 0 }]]
+    },
+    "03. PostgreSQL Deduplication Check": {
+      "main": [[{ "node": "04. OpenRouter Editorial Draft Agent", "type": "main", "index": 0 }]]
+    },
+    "04. OpenRouter Editorial Draft Agent": {
+      "main": [[{ "node": "05. Telegram Crew Completion Report", "type": "main", "index": 0 }]]
+    }
+  }
+}

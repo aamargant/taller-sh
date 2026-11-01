@@ -1,0 +1,273 @@
+{
+  "name": "taller.sh - WhatsApp Clinic Reminder & Waitlist Cascade",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes",
+              "minutesInterval": 15
+            }
+          ]
+        }
+      },
+      "id": "1",
+      "name": "Schedule Trigger (Every 15m)",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT a.id AS appointment_id, p.name AS patient_name, p.phone AS patient_phone, a.start_time, a.practitioner FROM appointments a JOIN patients p ON a.patient_id = p.id WHERE a.status = 'scheduled' AND a.start_time >= NOW() + INTERVAL '24 hours' AND a.start_time < NOW() + INTERVAL '24 hours 15 minutes';"
+      },
+      "id": "2",
+      "name": "Postgres: Get Appointments Due 24h",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "number": [
+            {
+              "value1": "={{ $items().length }}",
+              "operation": "larger",
+              "value2": 0
+            }
+          ]
+        }
+      },
+      "id": "3",
+      "name": "IF Any Due",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [680, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.facebook.com/v21.0/{{ $env.WHATSAPP_PHONE_NUMBER_ID }}/messages",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "=Bearer {{ $env.WHATSAPP_ACCESS_TOKEN }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"messaging_product\": \"whatsapp\",\n  \"recipient_type\": \"individual\",\n  \"to\": \"{{ $json.patient_phone }}\",\n  \"type\": \"template\",\n  \"template\": {\n    \"name\": \"appointment_reminder_interactive\",\n    \"language\": { \"code\": \"ca\" },\n    \"components\": [\n      {\n        \"type\": \"body\",\n        \"parameters\": [\n          { \"type\": \"text\", \"text\": \"{{ $json.patient_name }}\" },\n          { \"type\": \"text\", \"text\": \"{{ $json.start_time }}\" },\n          { \"type\": \"text\", \"text\": \"{{ $json.practitioner }}\" }\n        ]\n      },\n      {\n        \"type\": \"button\",\n        \"sub_type\": \"quick_reply\",\n        \"index\": \"0\",\n        \"parameters\": [{ \"type\": \"payload\", \"payload\": \"CONFIRM_{{ $json.appointment_id }}\" }]\n      },\n      {\n        \"type\": \"button\",\n        \"sub_type\": \"quick_reply\",\n        \"index\": \"1\",\n        \"parameters\": [{ \"type\": \"payload\", \"payload\": \"CANCEL_{{ $json.appointment_id }}\" }]\n      }\n    ]\n  }\n}"
+      },
+      "id": "4",
+      "name": "WhatsApp: Send Template Message",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [900, 280]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "=UPDATE appointments SET status = 'reminder_sent', updated_at = NOW() WHERE id = {{ $json.appointment_id }};"
+      },
+      "id": "5",
+      "name": "Postgres: Mark Reminder Sent",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [1120, 280]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "whatsapp",
+        "options": {}
+      },
+      "id": "6",
+      "name": "Webhook: Ingest WhatsApp Webhooks",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [240, 560],
+      "webhookId": "taller-sh-whatsapp-webhook"
+    },
+    {
+      "parameters": {
+        "jsCode": "const body = $json.body;\nconst entry = body?.entry?.[0]?.changes?.[0]?.value;\nif (!entry?.messages?.[0]) return [];\n\nconst message = entry.messages[0];\nconst from = message.from;\nlet action = null;\nlet appointmentId = null;\n\nif (message.type === 'button') {\n  const raw = message.button.payload || '';\n  [action, appointmentId] = raw.split('_');\n} else if (message.type === 'interactive' && message.interactive.type === 'button_reply') {\n  const raw = message.interactive.button_reply.id || '';\n  [action, appointmentId] = raw.split('_');\n}\n\nreturn [{\n  json: {\n    sender: from,\n    action: action,\n    appointmentId: parseInt(appointmentId, 10),\n    rawMessage: message\n  }\n}];"
+      },
+      "id": "7",
+      "name": "Code: Parse Button Action",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [460, 560]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "string": [
+                  {
+                    "value1": "={{ $json.action }}",
+                    "value2": "CONFIRM"
+                  }
+                ]
+              }
+            },
+            {
+              "conditions": {
+                "string": [
+                  {
+                    "value1": "={{ $json.action }}",
+                    "value2": "CANCEL"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "id": "8",
+      "name": "Switch: Confirm or Cancel",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [680, 560]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "=UPDATE appointments SET status = 'confirmed', updated_at = NOW() WHERE id = {{ $json.appointmentId }};"
+      },
+      "id": "9",
+      "name": "Postgres: Update Confirmed",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [920, 500]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "=UPDATE appointments SET status = 'cancelled', updated_at = NOW() WHERE id = {{ $json.appointmentId }} RETURNING id, practitioner, start_time, end_time;"
+      },
+      "id": "10",
+      "name": "Postgres: Update Cancelled & Get Slot",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [920, 680]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "=SELECT w.id AS waitlist_id, p.name AS patient_name, p.phone AS patient_phone FROM waitlist w JOIN patients p ON w.patient_id = p.id WHERE w.claimed = FALSE AND (w.practitioner = '{{ $json.practitioner }}' OR w.practitioner IS NULL) AND (w.offered_at IS NULL OR w.offered_at < NOW() - INTERVAL '30 minutes') ORDER BY w.id ASC LIMIT 1;"
+      },
+      "id": "11",
+      "name": "Postgres: Find Waitlist Candidate",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [1140, 680]
+    }
+  ],
+  "connections": {
+    "Schedule Trigger (Every 15m)": {
+      "main": [
+        [
+          {
+            "node": "Postgres: Get Appointments Due 24h",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres: Get Appointments Due 24h": {
+      "main": [
+        [
+          {
+            "node": "IF Any Due",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF Any Due": {
+      "main": [
+        [
+          {
+            "node": "WhatsApp: Send Template Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "WhatsApp: Send Template Message": {
+      "main": [
+        [
+          {
+            "node": "Postgres: Mark Reminder Sent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook: Ingest WhatsApp Webhooks": {
+      "main": [
+        [
+          {
+            "node": "Code: Parse Button Action",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code: Parse Button Action": {
+      "main": [
+        [
+          {
+            "node": "Switch: Confirm or Cancel",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch: Confirm or Cancel": {
+      "main": [
+        [
+          {
+            "node": "Postgres: Update Confirmed",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Postgres: Update Cancelled & Get Slot",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres: Update Cancelled & Get Slot": {
+      "main": [
+        [
+          {
+            "node": "Postgres: Find Waitlist Candidate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

@@ -15,7 +15,7 @@
   * `01-resilient-event-bus.json`
   * `02-private-rag-cluster.json`
   * `03-autonomous-reconciliation.json`
-  * `04-sovereign-hermes-agent.json`
+  * `04-sovereign-agent-runtime.json`
 * **`nginx.conf`**: Hardened reverse proxy configuration with HTTP/2, security headers, GEO crawler routing, and strict asset caching.
 * **`docker-compose.yml`**: Docker service definition serving the workshop runtime in isolated production containers.
 * **`.agents/`**: Workspace agent configuration, custom rules, and the 6 agentic workflows playbook (`WORKFLOWS.md`).

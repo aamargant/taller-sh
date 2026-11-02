@@ -100,7 +100,7 @@ This directory documents the 6 production agentic workflows configured and insta
   - `sentry`: Sentry MCP connector for stack-trace debugging and anomaly alerts.
 - **Runtime Stack**:
   - Docker Compose (`taller-sh-web` with Nginx Alpine, HTTP/2, SSL termination).
-  - GitHub Actions CI/CD (`aamargant/taller-sh`).
+  - GitHub Actions CI/CD (`taller-sh/taller-sh`).
 - **How to Trigger**:
   - *"Inspect Nginx gzip and caching headers for production readiness."*
   - *"Check Docker container health and restart policies."*

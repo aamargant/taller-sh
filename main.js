@@ -7,12 +7,12 @@
 const BLUEPRINTS = {
   "agent-deck": {
     id: "agent-deck",
-    title: "Agent-Deck & Hermes Supervisor",
-    stack: "RUST / HERMES / PTY SHELL",
+    title: "Agent-Deck & Multi-CLI Supervisor",
+    stack: "RUST / CLI HARNESS / SQLITE",
     licensePrice: "€49",
-    desc: "Production supervisor built in Rust to manage autonomous Hermes sessions, Claude Code, and Aider in isolated PTY shells while recording token burn to a local SQLite database. Includes full Rust source repository, systemd unit definitions, and setup guide.",
+    desc: "Production supervisor built in Rust to coordinate autonomous CLI agents (AGY CLI, Claude Code, and background workers) in isolated PTY shells while recording token burn to a local SQLite database. Includes full Rust source repository, systemd unit definitions, and setup guide.",
     files: ["Cargo.toml", "src/main.rs", "src/app.rs", "src/agent/pty.rs", "src/telemetry.rs"],
-    code: `// Commercial Blueprint: Agent-Deck Hermes Supervisor Deck
+    code: `// Commercial Blueprint: Agent-Deck Multi-CLI Supervisor Deck
 // Full repository access granted upon license acquisition
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
@@ -24,7 +24,7 @@ async fn main() -> anyhow::Result<()> {
 
     // Supervise isolated PTY agent sessions and track SQLite token telemetry
     let mut deck = SupervisorDeck::init("agent_deck.sqlite")?;
-    deck.attach_hermes_session("default")?;
+    deck.attach_agent_session("production-worker")?;
     
     loop {
         terminal.draw(|f| deck.render_ui(f))?;

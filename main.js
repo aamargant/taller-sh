@@ -129,7 +129,8 @@ document.addEventListener("DOMContentLoaded", () => {
   initBlueprintTabs();
   initBlueprintModal();
   initImpactSelector();
-  initContactActions();
+  initRoiCalculator();
+  initIntakeModal();
 });
 
 /* ==========================================================================
@@ -236,7 +237,11 @@ function initBlueprintModal() {
       const bp = BLUEPRINTS[activeBlueprintId];
       closeModal();
       if (bp) {
-        openWhatsAppConsultation(`Deploy ${bp.title} on Taller Managed Cloud (€149/mo)`);
+        if (window.openIntakeModal) {
+          window.openIntakeModal(`Deploy ${bp.title} on Taller Managed Cloud (€149/mo)`);
+        } else {
+          openWhatsAppConsultation(`Deploy ${bp.title} on Taller Managed Cloud (€149/mo)`);
+        }
       }
     });
   }
@@ -271,15 +276,40 @@ function initImpactSelector() {
 }
 
 /* ==========================================================================
-   5. CONTACT & WHATSAPP INTEGRATION
+   5. ROI / TIME RECOVERY CALCULATOR (Sales Enablement)
    ========================================================================== */
-function initContactActions() {
-  document.querySelectorAll("[data-order]").forEach(btn => {
-    btn.addEventListener("click", () => {
-      const orderName = btn.dataset.order;
-      openWhatsAppConsultation(orderName);
-    });
-  });
+function initRoiCalculator() {
+  const hoursSlider = document.getElementById("roi-hours-slider");
+  const rateSlider = document.getElementById("roi-rate-slider");
+  const hoursVal = document.getElementById("roi-hours-val");
+  const rateVal = document.getElementById("roi-rate-val");
+  const currentDrag = document.getElementById("roi-current-drag");
+  const netSavings = document.getElementById("roi-net-savings");
+  const hoursReclaimed = document.getElementById("roi-hours-reclaimed");
+
+  if (!hoursSlider || !rateSlider) return;
+
+  function updateRoi() {
+    const hours = parseInt(hoursSlider.value, 10);
+    const rate = parseInt(rateSlider.value, 10);
+
+    hoursVal.textContent = `${hours} hrs/week`;
+    rateVal.textContent = `€${rate} / hr`;
+
+    const monthlyHours = hours * 4.33;
+    const monthlyDrag = Math.round(monthlyHours * rate);
+    const tallerCost = 349;
+    const monthlyNet = Math.max(0, monthlyDrag - tallerCost);
+    const annualHours = Math.round(hours * 50);
+
+    currentDrag.textContent = `€${monthlyDrag.toLocaleString()} / mo`;
+    netSavings.textContent = `€${monthlyNet.toLocaleString()} / mo`;
+    hoursReclaimed.textContent = `${annualHours.toLocaleString()} hrs / yr`;
+  }
+
+  hoursSlider.addEventListener("input", updateRoi);
+  rateSlider.addEventListener("input", updateRoi);
+  updateRoi();
 }
 
 function openWhatsAppConsultation(topic) {
@@ -288,4 +318,121 @@ function openWhatsAppConsultation(topic) {
     `Hello taller.sh team, I am interested in: ${topic}. My selected 10% community pledge initiative is: ${jarLabel}.`
   );
   window.open(`https://wa.me/34689788390?text=${text}`, "_blank", "noopener");
+}
+
+/* ==========================================================================
+   6. RAPID INTAKE MODAL & CONTACT (CRO Friction Reducer)
+   ========================================================================== */
+let activeIntakeTopic = "Pro Cloud Fleet Plan (€349/mo)";
+
+function initIntakeModal() {
+  const intakeModal = document.getElementById("intake-modal");
+  const intakeCloseBtn = document.getElementById("intake-close-btn");
+  const intakeBadge = document.getElementById("intake-tier-badge");
+  const intakeForm = document.getElementById("agent-intake-form");
+  const confirmMsg = document.getElementById("intake-confirm-msg");
+  const waDirectBtn = document.getElementById("intake-wa-direct-btn");
+  const chipBtns = document.querySelectorAll("#bottleneck-chips .chip-btn");
+
+  if (!intakeModal) return;
+
+  function openIntake(topic) {
+    activeIntakeTopic = topic || "Custom Agent Deployment";
+    if (intakeBadge) intakeBadge.textContent = activeIntakeTopic.toUpperCase();
+    if (confirmMsg) confirmMsg.style.display = "none";
+    intakeModal.classList.add("open");
+    intakeModal.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+    const contactInput = document.getElementById("intake-contact");
+    if (contactInput) contactInput.focus();
+  }
+
+  window.openIntakeModal = openIntake;
+
+  function closeIntake() {
+    intakeModal.classList.remove("open");
+    intakeModal.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+  }
+
+  // Bind all buttons with data-order to open the intake modal
+  document.querySelectorAll("[data-order]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      openIntake(btn.dataset.order);
+    });
+  });
+
+  if (intakeCloseBtn) intakeCloseBtn.addEventListener("click", closeIntake);
+  intakeModal.addEventListener("click", e => {
+    if (e.target === intakeModal) closeIntake();
+  });
+  document.addEventListener("keydown", e => {
+    if (e.key === "Escape" && intakeModal.classList.contains("open")) {
+      closeIntake();
+    }
+  });
+
+  // Chip selection
+  let selectedBottleneck = "WhatsApp & Lead Triage";
+  chipBtns.forEach(chip => {
+    chip.addEventListener("click", () => {
+      chipBtns.forEach(c => c.classList.remove("active"));
+      chip.classList.add("active");
+      selectedBottleneck = chip.dataset.val || chip.textContent;
+    });
+  });
+
+  // Form submission
+  if (intakeForm) {
+    intakeForm.addEventListener("submit", e => {
+      e.preventDefault();
+      const contactVal = document.getElementById("intake-contact").value.trim();
+      const notesVal = document.getElementById("intake-notes").value.trim();
+
+      if (!contactVal) return;
+
+      if (confirmMsg) {
+        confirmMsg.style.display = "block";
+      }
+
+      // Track conversion attempt locally
+      try {
+        const payload = {
+          topic: activeIntakeTopic,
+          contact: contactVal,
+          bottleneck: selectedBottleneck,
+          notes: notesVal,
+          jar: currentJar,
+          timestamp: new Date().toISOString()
+        };
+        const existing = JSON.parse(localStorage.getItem("taller_intakes") || "[]");
+        existing.push(payload);
+        localStorage.setItem("taller_intakes", JSON.stringify(existing));
+      } catch (err) {}
+
+      setTimeout(() => {
+        closeIntake();
+        intakeForm.reset();
+        chipBtns.forEach((c, idx) => c.classList.toggle("active", idx === 0));
+        selectedBottleneck = "WhatsApp & Lead Triage";
+      }, 2200);
+    });
+  }
+
+  // Direct WhatsApp from modal
+  if (waDirectBtn) {
+    waDirectBtn.addEventListener("click", () => {
+      const contactVal = document.getElementById("intake-contact")?.value.trim() || "";
+      const notesVal = document.getElementById("intake-notes")?.value.trim() || "";
+      const jarLabel = IMPACT_JARS[currentJar] || "Apprentice Workshop Toolsets";
+
+      let text = `Hello taller.sh team, I am interested in: ${activeIntakeTopic}. Primary bottleneck: ${selectedBottleneck}.`;
+      if (contactVal) text += ` My contact: ${contactVal}.`;
+      if (notesVal) text += ` Notes: ${notesVal}.`;
+      text += ` Community pledge: ${jarLabel}.`;
+
+      window.open(`https://wa.me/34689788390?text=${encodeURIComponent(text)}`, "_blank", "noopener");
+      closeIntake();
+    });
+  }
 }

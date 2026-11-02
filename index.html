@@ -101,6 +101,7 @@
         <a href="#intelligence" class="nav-link">How It Works</a>
         <a href="#blueprints" class="nav-link">Blueprints</a>
         <a href="#privacy" class="nav-link">Privacy</a>
+        <a href="#faq" class="nav-link">FAQ</a>
         <a href="#pledge" class="nav-link">10% Pledge</a>
       </nav>
 
@@ -363,6 +364,52 @@
           </p>
         </div>
 
+        <!-- ROI TIME RECOVERY CALCULATOR (Sales Enablement) -->
+        <div class="roi-calculator-wrap" style="margin-bottom: 2.5rem;">
+          <div>
+            <span class="section-topic" style="margin-bottom: 0.35rem; display: inline-block;">Interactive ROI Assessment</span>
+            <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.75rem;">Calculate your team's recovered hours &amp; savings.</h3>
+            <p style="font-size: 0.875rem; color: var(--text-secondary); line-height: 1.5; margin-bottom: 1.5rem;">
+              Slide your team's weekly hours spent on manual ticket triage, document parsing, scheduling, or routine status reporting to see your net monthly savings.
+            </p>
+
+            <div class="roi-slider-group">
+              <div class="roi-slider-header">
+                <span class="roi-slider-label">Manual Ops Hours per Week:</span>
+                <span class="roi-slider-val" id="roi-hours-val">15 hrs/week</span>
+              </div>
+              <input type="range" class="roi-range-input" id="roi-hours-slider" min="5" max="60" value="15" step="1">
+            </div>
+
+            <div class="roi-slider-group" style="margin-top: 1rem;">
+              <div class="roi-slider-header">
+                <span class="roi-slider-label">Blended Hourly Staff Cost:</span>
+                <span class="roi-slider-val" id="roi-rate-val">€30 / hr</span>
+              </div>
+              <input type="range" class="roi-range-input" id="roi-rate-slider" min="15" max="75" value="30" step="5">
+            </div>
+          </div>
+
+          <div class="roi-results-box">
+            <div class="roi-stat-row">
+              <span class="roi-stat-lbl">Current Monthly Human Drag</span>
+              <span class="roi-stat-num" id="roi-current-drag">€1,800 / mo</span>
+            </div>
+            <div class="roi-stat-row">
+              <span class="roi-stat-lbl">taller.sh Pro Fleet Retainer</span>
+              <span class="roi-stat-num" style="color: var(--text-muted);">€349 / mo</span>
+            </div>
+            <div class="roi-stat-row">
+              <span class="roi-stat-lbl">Net Monthly Operational Savings</span>
+              <span class="roi-stat-num highlight" id="roi-net-savings">€1,451 / mo</span>
+            </div>
+            <div class="roi-stat-row">
+              <span class="roi-stat-lbl">Annual Hours Reclaimed</span>
+              <span class="roi-stat-num highlight" id="roi-hours-reclaimed">720 hrs / yr</span>
+            </div>
+          </div>
+        </div>
+
         <div class="services-layout">
           <!-- Tier 1 -->
           <div class="service-card">
@@ -450,6 +497,32 @@
             <button type="button" class="btn btn-secondary btn-block" data-order="Dedicated Sovereign Cluster (€790/mo)">
               Inquire about Dedicated Cluster
             </button>
+          </div>
+        </div>
+
+        <!-- OFFER GUARANTEE & COHORT CAPACITY (CRO Framework) -->
+        <div class="offer-guarantee-wrap">
+          <div>
+            <div class="guarantee-content-title">
+              <span class="guarantee-shield-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                  <path d="M9 12l2 2 4-4"/>
+                </svg>
+              </span>
+              <span>30-Day Operational Risk Reversal Guarantee</span>
+            </div>
+            <p class="guarantee-content-desc">
+              If your custom agent is not handling live operational workflows within 14 days, or does not measurably eliminate at least <strong>15 hours of manual work</strong> in your first 30 days, we refund <strong>100% of your onboarding fee and monthly subscription</strong>. Zero arguments, zero friction.
+            </p>
+          </div>
+
+          <div class="cohort-capacity-badge">
+            <span class="cohort-label">Q4 Engineering Capacity</span>
+            <div class="cohort-status">
+              <span class="pulse-pip" style="width: 8px; height: 8px; background: var(--signal); border-radius: 50%; display: inline-block;"></span>
+              <span>2 of 4 slots open for November</span>
+            </div>
           </div>
         </div>
       </div>
@@ -708,6 +781,65 @@
       </div>
     </section>
 
+    <!-- SECTION: OBJECTION HANDLING FAQ (CRO Dimension 6) -->
+    <section class="section" id="faq">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-topic">Common Questions &amp; Hesitations</span>
+          <h2 class="section-heading">Everything you need to know before deploying.</h2>
+          <p class="section-narrative">
+            Clear answers to common questions about data privacy, onboarding workload, edge cases, and self-hosting migration.
+          </p>
+        </div>
+
+        <div class="faq-grid">
+          <!-- FAQ 1 -->
+          <div class="faq-card">
+            <h3 class="faq-question">
+              <span style="color: var(--signal); font-family: var(--font-mono);">&gt;</span>
+              <span>How much time does my team need to invest in onboarding?</span>
+            </h3>
+            <p class="faq-answer">
+              <strong>Under 60 minutes total.</strong> We conduct a single technical and operational scoping interview to capture your workflows, edge cases, and access requirements. Our senior engineers handle 100% of the build, tool integration, testing, and deployment.
+            </p>
+          </div>
+
+          <!-- FAQ 2 -->
+          <div class="faq-card">
+            <h3 class="faq-question">
+              <span style="color: var(--signal); font-family: var(--font-mono);">&gt;</span>
+              <span>How do you guarantee our company data will never leak or train external models?</span>
+            </h3>
+            <p class="faq-answer">
+              Every deployment is backed by a <strong>signed B2B Data Processing Agreement (DPA) and mutual NDA</strong>. We exclusively use zero-retention enterprise API endpoints and isolate all persistent knowledge in encrypted European databases (Frankfurt &amp; Paris under GDPR). Your data is never used to train public foundation models.
+            </p>
+          </div>
+
+          <!-- FAQ 3 -->
+          <div class="faq-card">
+            <h3 class="faq-question">
+              <span style="color: var(--signal); font-family: var(--font-mono);">&gt;</span>
+              <span>What happens when an agent encounters an edge case it hasn't seen before?</span>
+            </h3>
+            <p class="faq-answer">
+              <strong>Deterministic safety.</strong> Instead of guessing or hallucinating, the agent halts, flags your designated team member via Slack or WhatsApp with full context, and requests guidance. Once guided, the agent saves that resolution as a permanent procedural skill in its database so it never has to ask twice.
+            </p>
+          </div>
+
+          <!-- FAQ 4 -->
+          <div class="faq-card">
+            <h3 class="faq-question">
+              <span style="color: var(--signal); font-family: var(--font-mono);">&gt;</span>
+              <span>Can we migrate from your managed cloud to our own servers later?</span>
+            </h3>
+            <p class="faq-answer">
+              <strong>100% portability. Zero vendor lock-in.</strong> If you ever choose to bring infrastructure in-house, we provide an export package containing your full Docker compose files, SQLite databases, agent skill definitions, and setup runbooks to run on bare-metal or your private cloud forever.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- SECTION 6: CONTACT & CONSULTATION -->
     <section class="section" id="contact" style="border-bottom: none;">
       <div class="container">
@@ -737,10 +869,11 @@
       </div>
       <nav class="footer-nav">
         <a href="#plans">Subscriptions</a>
-        <a href="#intelligence">Intelligence</a>
+        <a href="#solutions">What We Solve</a>
         <a href="#blueprints">Blueprints</a>
         <a href="/manifesto">Manifesto</a>
         <a href="#privacy">Privacy</a>
+        <a href="#faq">FAQ</a>
         <a href="#pledge">10% Pledge</a>
       </nav>
     </div>
@@ -764,6 +897,55 @@
         <button type="button" class="btn btn-secondary btn-sm" id="modal-buy-license-btn">Buy Architecture License — €49</button>
         <button type="button" class="btn btn-primary btn-sm" id="modal-deploy-cloud-btn">Deploy on Taller Cloud (€149/mo)</button>
       </div>
+    </div>
+  </div>
+
+  <!-- RAPID INTAKE MODAL (CRO Friction Reducer) -->
+  <div class="modal-overlay" id="intake-modal" aria-hidden="true">
+    <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="intake-modal-title" style="max-width: 580px;">
+      <div class="modal-header">
+        <div>
+          <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--signal);" id="intake-tier-badge">DEPLOYMENT INTAKE</span>
+          <h3 id="intake-modal-title" style="font-size: 1.15rem; font-weight: 700; margin-top: 2px;">Deploy Your Custom Agent</h3>
+        </div>
+        <button type="button" id="intake-close-btn" aria-label="Close" style="font-size: 1.5rem; line-height: 1; padding: 4px 8px; color: var(--text-muted);">&times;</button>
+      </div>
+      <form class="intake-form" id="agent-intake-form">
+        <div class="form-group">
+          <label class="form-label" for="intake-contact">Work Email or WhatsApp Number</label>
+          <input type="text" id="intake-contact" class="form-input" placeholder="e.g. alex@company.com or +34 600 000 000" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Primary Operational Bottleneck to Solve</label>
+          <div class="bottleneck-chips" id="bottleneck-chips">
+            <button type="button" class="chip-btn active" data-val="WhatsApp & Lead Triage">WhatsApp &amp; Lead Triage</button>
+            <button type="button" class="chip-btn" data-val="Invoice & Document Parsing">Invoice &amp; Document Parsing</button>
+            <button type="button" class="chip-btn" data-val="System & Code Health Audits">System &amp; Code Health Audits</button>
+            <button type="button" class="chip-btn" data-val="Custom Operational Workflow">Custom Operational Workflow</button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="intake-notes">Brief Context / Existing Software (Optional)</label>
+          <textarea id="intake-notes" class="form-textarea" rows="2" placeholder="e.g. We use PostgreSQL, HubSpot, and process 40 supplier invoices a day..."></textarea>
+        </div>
+
+        <div style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 0.4rem;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--status-live);">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+          <span>Signed B2B DPA &amp; NDA included. Zero public model training.</span>
+        </div>
+
+        <div style="display: flex; gap: 0.75rem; margin-top: 0.5rem;">
+          <button type="submit" class="btn btn-primary" id="intake-submit-btn" style="flex: 1;">Submit Intake to Engineers</button>
+          <button type="button" class="btn btn-secondary" id="intake-wa-direct-btn" style="flex: 1;">Chat on WhatsApp</button>
+        </div>
+        <div id="intake-confirm-msg" style="display: none; padding: 0.75rem; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.25); border-radius: var(--radius-sm); color: #10b981; font-size: 0.8125rem; text-align: center;">
+          ✓ Scope received. Our senior engineering team will review and reply within 4 business hours.
+        </div>
+      </form>
     </div>
   </div>
 

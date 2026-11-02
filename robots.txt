@@ -1,0 +1,27 @@
+# taller.sh robots.txt
+# Optimized for AI Search Visibility (GEO) and standard search engine indexing
+
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /.git
+
+# AI Search Engines (Allow indexing and search citations)
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# Sitemaps and LLM Discovery
+Sitemap: https://taller.sh/sitemap.xml
+# LLM context: https://taller.sh/llms.txt

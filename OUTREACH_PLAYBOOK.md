@@ -53,7 +53,7 @@
 > ¿Os puedo enviar un enlace de 30 segundos donde podéis pulsar los botones vosotros mismos como si fuerais el paciente?
 > 
 > Un saludo,  
-> **Arnau Amargant**  
+> **taller.sh Operations Lead**  
 > taller.sh · Granollers»
 
 ---
@@ -67,7 +67,7 @@
 ---
 
 ### Guión Telefónico / WhatsApp para Reformistas
-> «Hola [Nombre], te llamo muy rápido. Soy Arnau, de Granollers. 
+> «Hola [Nombre], te llamo muy rápido. Te contacto de taller.sh, en Granollers. 
 > 
 > Una pregunta directa: **¿Cuánto tardáis normalmente en entregar un presupuesto desde que visitáis la vivienda del cliente?**»
 

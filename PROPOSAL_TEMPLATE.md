@@ -2,7 +2,7 @@
 
 **Referencia:** TSH-2026-`[NUMERO]`  
 **Fecha:** `[FECHA]`  
-**Proveedor:** taller.sh (Arnau Amargant) · Granollers, Barcelona  
+**Proveedor:** taller.sh (Software Engineering Studio) · Granollers, Barcelona  
 **Cliente:** `[NOMBRE CLÍNICA / EMPRESA]` (CIF/NIF: `[CIF]`)  
 **Representante:** `[NOMBRE CONTACTO]`  
 
@@ -44,7 +44,7 @@ Ambas partes declaran cumplir con el Reglamento (UE) 2016/679 (RGPD). taller.sh 
 ---
 
 **Por taller.sh:**  
-Arnau Amargant  
+taller.sh Engineering Directorate  
 
 Firma: ___________________________  
 

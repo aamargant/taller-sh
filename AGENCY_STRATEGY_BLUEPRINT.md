@@ -1,7 +1,7 @@
 # TALLER.SH // Dossier Estratégico y Modelo de Agencia
 
 > **Nombre:** taller.sh  
-> **Fundador:** Arnau Amargant (Edge DevOps & Creative Engineer)  
+> **Engineering Studio:** taller.sh (Edge DevOps & Systems Architecture)  
 > **Sede:** Granollers / Barcelona (Vallès Oriental)  
 > **Lema:** *«El taller de software para la economía real. Reparamos cuellos de botella operativos con micro-aplicaciones y automatizaciones a medida.»*
 

@@ -1,0 +1,16 @@
+# taller.sh
+
+> Software engineering workshop specializing in bespoke intelligence infrastructure, production runtime clusters, and tested architecture blueprints.
+
+## Core Offerings
+
+- [Engineering Manifesto](https://taller.sh/manifesto.html): Principles of deterministic software engineering, zero-fluff delivery, and sovereign infrastructure.
+- [Validated Architecture Blueprints](https://taller.sh/#blueprints): Production-ready architecture blueprints including event streaming, private vector RAG, workflow orchestration, and resilient microservices.
+- [Bespoke Intelligence Clusters](https://taller.sh/#contact): Turnkey private intelligence clusters, on-premise hardware provisioning, and managed dedicated cloud operations.
+- [Client Validations & Case Studies](https://taller.sh/#benchmarks): Verified performance audits, throughput benchmarks, and latency reductions.
+
+## Architectural Principles
+
+- **Zero Middleware Theater**: No unnecessary proxies, no vendor lock-in. Clean, inspectable architectures.
+- **Sovereign Computing**: Deploy to bare metal, private cloud VPCs, or sovereign European infrastructure with rigorous privacy guarantees.
+- **Continuous Validation**: Every blueprint and cluster is validated under adversarial load and verified with end-to-end telemetry.

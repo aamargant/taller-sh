@@ -21,6 +21,69 @@
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="style.css?v=14.0">
+
+  <!-- Schema.org Structured Data (GEO & Semantic Search) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://taller.sh/#organization",
+        "name": "Taller",
+        "url": "https://taller.sh",
+        "logo": "https://taller.sh/favicon.svg",
+        "description": "Custom AI agents and managed business intelligence infrastructure with signed privacy contracts and European cloud hosting.",
+        "sameAs": [
+          "https://github.com/taller-sh"
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://taller.sh/#website",
+        "url": "https://taller.sh",
+        "name": "taller.sh",
+        "publisher": {
+          "@id": "https://taller.sh/#organization"
+        },
+        "description": "Custom-built AI agents and autonomous workflows for modern enterprises."
+      },
+      {
+        "@type": "Service",
+        "@id": "https://taller.sh/#service",
+        "name": "Custom Intelligence & Cloud AI Runtime",
+        "provider": {
+          "@id": "https://taller.sh/#organization"
+        },
+        "serviceType": "Cloud Business Intelligence Infrastructure",
+        "description": "Dedicated Hermes AI agent runtimes, custom model fine-tuning, and deterministic workflow pipelines.",
+        "offers": [
+          {
+            "@type": "Offer",
+            "name": "Starter Cloud Agent",
+            "price": "149",
+            "priceCurrency": "EUR",
+            "availability": "https://schema.org/InStock"
+          },
+          {
+            "@type": "Offer",
+            "name": "Team Operations Runtime",
+            "price": "349",
+            "priceCurrency": "EUR",
+            "availability": "https://schema.org/InStock"
+          },
+          {
+            "@type": "Offer",
+            "name": "Dedicated Intelligence Cluster",
+            "price": "790",
+            "priceCurrency": "EUR",
+            "availability": "https://schema.org/InStock"
+          }
+        ]
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
 

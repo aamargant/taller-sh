@@ -1,0 +1,52 @@
+[
+ {
+  "file": "assets/images/datacenter-grid-jpg.jpg",
+  "media": "image",
+  "ref": "commons:119218838",
+  "title": "Rack of Worldwide LHC Computing Grid",
+  "creator": "Marián Hubinský",
+  "creatorUrl": null,
+  "date": "2018-10-08",
+  "license": "CC BY-SA 4.0",
+  "licenseCode": "by-sa",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "creditRequired": true,
+  "page": "https://commons.wikimedia.org/wiki/File:Rack_of_Worldwide_LHC_Computing_Grid.jpg",
+  "via": "Wikimedia Commons",
+  "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/58/Rack_of_Worldwide_LHC_Computing_Grid.jpg/1920px-Rack_of_Worldwide_LHC_Computing_Grid.jpg",
+  "width": 1920,
+  "height": 1440,
+  "bytes": 740256,
+  "credit": "\"Rack of Worldwide LHC Computing Grid\" by Marián Hubinský, CC BY-SA 4.0, via Wikimedia Commons",
+  "notes": [
+   "Share-alike: an altered version (recoloured, combined with other pictures) must be shared under the same licence."
+  ],
+  "saved": "2026-11-02T06:09:19.517Z"
+ },
+ {
+  "file": "assets/images/vector-mesh-webm.webm",
+  "media": "video",
+  "poster": "assets/images/vector-mesh-webm-poster.jpg",
+  "ref": "commons:89307412",
+  "title": "Support Vector Machine",
+  "creator": "Gpeyre",
+  "creatorUrl": null,
+  "date": "2020-04-20",
+  "license": "CC BY-SA 4.0",
+  "licenseCode": "by-sa",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "creditRequired": true,
+  "page": "https://commons.wikimedia.org/wiki/File:Support_Vector_Machine.webm",
+  "via": "Wikimedia Commons",
+  "video": "https://upload.wikimedia.org/wikipedia/commons/transcoded/4/42/Support_Vector_Machine.webm/Support_Vector_Machine.webm.480p.vp9.webm",
+  "width": 480,
+  "height": 480,
+  "duration": 14.6,
+  "bytes": 132994,
+  "credit": "\"Support Vector Machine\" by Gpeyre, CC BY-SA 4.0, via Wikimedia Commons",
+  "notes": [
+   "Share-alike: an altered version (recoloured, combined with other pictures) must be shared under the same licence."
+  ],
+  "saved": "2026-11-02T06:09:32.725Z"
+ }
+]

@@ -131,6 +131,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initImpactSelector();
   initRoiCalculator();
   initIntakeModal();
+  initScrollMotion();
 });
 
 /* ==========================================================================
@@ -433,6 +434,33 @@ function initIntakeModal() {
 
       window.open(`https://wa.me/34689788390?text=${encodeURIComponent(text)}`, "_blank", "noopener");
       closeIntake();
+    });
+  }
+}
+
+/* ==========================================================================
+   7. MOTION LAYER (Scroll Reveals)
+   ========================================================================== */
+function initScrollMotion() {
+  const targets = document.querySelectorAll(
+    ".section-head, .solution-card, .service-card, .blueprint-card, .faq-card, .impact-jar-card, .datacenter-photo-wrap, .pledge-photo-wrap, .studio-photo-card, .studio-media-wrap, .roi-calculator-wrap, .offer-guarantee-wrap, .contact-block"
+  );
+  if ("IntersectionObserver" in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("animate-in");
+          try {
+            entry.target.animate([{ transform: "translateY(10px)" }, { transform: "translateY(0)" }], { duration: 380, easing: "cubic-bezier(0.16, 1, 0.3, 1)" });
+          } catch (err) {}
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.05, rootMargin: "0px 0px -10px 0px" });
+
+    targets.forEach(el => {
+      el.classList.add("reveal-on-scroll");
+      observer.observe(el);
     });
   }
 }

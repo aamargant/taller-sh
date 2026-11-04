@@ -54,20 +54,20 @@
         "offers": [
           {
             "@type": "Offer",
+            "name": "Local Starter Rig (Dedicated Server + 1 Workflow)",
+            "price": "200",
+            "priceCurrency": "EUR"
+          },
+          {
+            "@type": "Offer",
+            "name": "Workflow Expansion Add-on",
+            "price": "200",
+            "priceCurrency": "EUR"
+          },
+          {
+            "@type": "Offer",
             "name": "Production VPS Stack Blueprint",
             "price": "49",
-            "priceCurrency": "EUR"
-          },
-          {
-            "@type": "Offer",
-            "name": "Done-For-You Blueprint Integration Sprint",
-            "price": "650",
-            "priceCurrency": "EUR"
-          },
-          {
-            "@type": "Offer",
-            "name": "14-Day Sovereign Architecture Sprint",
-            "price": "2800",
             "priceCurrency": "EUR"
           }
         ]
@@ -89,7 +89,7 @@
 
       <nav class="nav-menu" aria-label="Primary navigation">
         <a href="#blueprints" class="nav-link">Blueprints</a>
-        <a href="#custom-sprints" class="nav-link">Custom Sprints</a>
+        <a href="#pricing" class="nav-link">Pricing &amp; Plans</a>
         <a href="#architecture" class="nav-link">How It Works</a>
         <a href="#roi" class="nav-link">ROI Calculator</a>
         <a href="/manifesto" class="nav-link">Manifesto</a>
@@ -98,7 +98,7 @@
       </nav>
 
       <div class="nav-actions">
-        <button type="button" class="btn btn-primary btn-sm" data-order="14-Day Sovereign Architecture Sprint (€2,800)">Deploy Systems</button>
+        <button type="button" class="btn btn-primary btn-sm" data-checkout="starter-rig">Deploy Starter Rig (€200)</button>
         <button type="button" class="mobile-menu-btn" id="mobile-menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">☰ Menu</button>
       </div>
     </div>
@@ -128,7 +128,7 @@
 
             <div class="hero-cta-bar">
               <a href="#blueprints" class="btn btn-primary">Browse Ready-Made Blueprints ↓</a>
-              <button type="button" class="btn btn-secondary" data-order="14-Day Sovereign Architecture Sprint (€2,800)">Book Custom Architecture →</button>
+              <button type="button" class="btn btn-secondary" data-checkout="starter-rig">Deploy Starter Rig (€200 + €50/mo) →</button>
             </div>
 
             <div class="hero-reassurance-row">
@@ -426,100 +426,102 @@
       </div>
     </section>
 
-    <!-- SECTION: PRODUCTIZED CUSTOM B2B OFFERS (HIGH-TICKET SPRINTS) -->
-    <section class="section" id="custom-sprints">
+    <!-- SECTION: PRICING & LOCAL MANAGED RUNTIMES -->
+    <section class="section" id="pricing">
       <div class="container">
         <div class="section-head">
-          <span class="section-tag-label">Fixed-Scope Engineering Sprints</span>
-          <h2 class="section-heading">Bespoke sovereign architecture. Zero scope creep.</h2>
+          <span class="section-tag-label">Transparent Local Runtimes</span>
+          <h2 class="section-heading">Simple, transparent pricing for real businesses.</h2>
           <p class="section-narrative">
-            We do not sell open-ended hourly billing. We architect, harden, and deploy sovereign software systems in fixed-scope sprints backed by our concrete 30-day operational guarantee.
+            Get your own dedicated European cloud server running production workflows without enterprise sticker shock. Zero vendor lock-in. Cancel anytime.
           </p>
         </div>
 
         <div class="sprints-grid">
 
-          <!-- Sprint 1 -->
-          <div class="sprint-card">
-            <span class="sprint-badge">Tier 1 · Rapid Turnkey</span>
-            <h3 class="sprint-title">"Done-For-You" Blueprint Integration</h3>
-            <div class="sprint-turnaround">⚡ 3 Business Days Turnaround</div>
+          <!-- Tier 1: Featured -->
+          <div class="sprint-card featured">
+            <span class="sprint-badge-popular">★ LOCAL STARTER RIG · MOST POPULAR</span>
+            <h3 class="sprint-title">Dedicated Server + 1 Workflow</h3>
+            <div class="sprint-turnaround">⚡ 48–72h Turnaround</div>
             <p class="sprint-desc">
-              We take one of our battle-tested blueprints, provision your private cloud server, wire it to your company tools, and hand over the keys.
+              Your own private cloud server running one high-impact workflow (WhatsApp appointment reminders, invoice parsing, or customer lead triage).
+            </p>
+
+            <div class="sprint-pricing">
+              <div class="sprint-price-row">
+                <span class="sprint-price">€200</span>
+                <span style="font-size: 1rem; color: var(--text-secondary); font-weight: 600;">+ €50 / mo</span>
+              </div>
+              <div class="sprint-term">One-time setup fee + €50/mo hosting &amp; maintenance · No contract</div>
+            </div>
+
+            <ul class="sprint-deliverables-list">
+              <li>1 Dedicated European VPS server provisioned &amp; hardened (Frankfurt / Paris)</li>
+              <li>1 Custom operational workflow wired to your WhatsApp, CRM, or email</li>
+              <li>Continuous uptime monitoring, automated nightly backups &amp; TLS maintenance</li>
+              <li>Direct WhatsApp support (+34 675 758 959) · Zero lock-in</li>
+            </ul>
+
+            <button type="button" class="btn btn-primary btn-block" data-checkout="starter-rig">
+              Deploy Starter Rig (€200 + €50/mo)
+            </button>
+          </div>
+
+          <!-- Tier 2: Expansion -->
+          <div class="sprint-card">
+            <span class="sprint-badge">Expansion Add-On</span>
+            <h3 class="sprint-title">Additional Workflow Rig</h3>
+            <div class="sprint-turnaround">⚡ 24–48h Turnaround</div>
+            <p class="sprint-desc">
+              Expand your existing server with more capabilities without paying for additional hosting hardware.
+            </p>
+
+            <div class="sprint-pricing">
+              <div class="sprint-price-row">
+                <span class="sprint-price">+€200</span>
+                <span style="font-size: 1rem; color: var(--text-secondary); font-weight: 600;">+ €25 / mo</span>
+              </div>
+              <div class="sprint-term">One-time build fee + €25/mo ongoing maintenance per extra workflow</div>
+            </div>
+
+            <ul class="sprint-deliverables-list">
+              <li>Additional operational workflow connected to your existing server</li>
+              <li>Invoice extraction, ERP ledger sync, or automated WhatsApp follow-ups</li>
+              <li>Shared isolated database &amp; zero new server subscription costs</li>
+              <li>Ongoing tuning &amp; edge-case refinement included in monthly care</li>
+            </ul>
+
+            <button type="button" class="btn btn-secondary btn-block" data-checkout="extra-workflow">
+              Add Workflow (+€200 + €25/mo)
+            </button>
+          </div>
+
+          <!-- Tier 3: Cluster -->
+          <div class="sprint-card">
+            <span class="sprint-badge">Enterprise &amp; Clusters</span>
+            <h3 class="sprint-title">Dedicated Multi-Server Cluster</h3>
+            <div class="sprint-turnaround">⚡ Custom Timeline</div>
+            <p class="sprint-desc">
+              For organizations requiring multi-server Docker clusters, on-premise hardware setups, or private high-volume LLM routing.
             </p>
 
             <div class="sprint-pricing">
               <div class="sprint-price-row">
                 <span class="sprint-price">€650</span>
               </div>
-              <div class="sprint-term">Fixed price · One-time sprint fee</div>
+              <div class="sprint-term">Starting setup fee · Tailored SLA &amp; maintenance quote</div>
             </div>
 
             <ul class="sprint-deliverables-list">
-              <li>Provision &amp; harden private VPS (Hetzner, OVH, or AWS)</li>
-              <li>Wire 1 blueprint into your existing ERP, CRM, or WhatsApp</li>
-              <li>End-to-end integration testing and zero zombie processes</li>
-              <li>30 days direct engineering monitoring &amp; root key handoff</li>
+              <li>Multi-server Docker cluster or on-premise hardware setup</li>
+              <li>Unlimited workflows &amp; custom local LLM routing</li>
+              <li>High-availability database replication &amp; priority 24/7 SLA</li>
+              <li>Complete source repository, architecture schematics &amp; root credentials</li>
             </ul>
 
-            <button type="button" class="btn btn-secondary btn-block" data-checkout="done-for-you-sprint">
-              Book Blueprint Integration (€650)
-            </button>
-          </div>
-
-          <!-- Sprint 2: Featured -->
-          <div class="sprint-card featured">
-            <span class="sprint-badge-popular">★ Tier 2 · Flagship Architecture</span>
-            <h3 class="sprint-title">14-Day Sovereign Architecture Sprint</h3>
-            <div class="sprint-turnaround">⚡ 14 Calendar Days Turnaround</div>
-            <p class="sprint-desc">
-              A deep end-to-end engineering sprint: we audit your #1 operational bottleneck, design a bespoke autonomous pipeline, and deploy it on infrastructure you own forever.
-            </p>
-
-            <div class="sprint-pricing">
-              <div class="sprint-price-row">
-                <span class="sprint-price">€2,800</span>
-              </div>
-              <div class="sprint-term">Fixed price · 50% deposit / 50% on verified delivery</div>
-            </div>
-
-            <ul class="sprint-deliverables-list">
-              <li>Deep workflow &amp; edge-case scoping audit with senior engineers</li>
-              <li>Bespoke autonomous multi-agent pipeline engineered from scratch</li>
-              <li>Zero recurring SaaS dependency — 100% GDPR-ready self-hosted runtime</li>
-              <li>Team operational training, full source repository &amp; root credentials</li>
-            </ul>
-
-            <button type="button" class="btn btn-primary btn-block" data-checkout="sovereign-sprint">
-              Apply for 14-Day Sprint (€2,800)
-            </button>
-          </div>
-
-          <!-- Sprint 3: Retainer -->
-          <div class="sprint-card">
-            <span class="sprint-badge">Tier 3 · Ongoing Operations</span>
-            <h3 class="sprint-title">Managed Cloud Intelligence Retainer</h3>
-            <div class="sprint-turnaround">⚡ Ongoing Monthly Management</div>
-            <p class="sprint-desc">
-              For companies that want taller.sh to host, continuously tune, and maintain their autonomous intelligence runtimes with dedicated uptime SLAs.
-            </p>
-
-            <div class="sprint-pricing">
-              <div class="sprint-price-row">
-                <span class="sprint-price">€349</span>
-              </div>
-              <div class="sprint-term">Billed monthly · €600 one-time onboarding build</div>
-            </div>
-
-            <ul class="sprint-deliverables-list">
-              <li>Up to 3 interconnected autonomous agents running 24/7</li>
-              <li>Dedicated encrypted European cloud hosting (Frankfurt / Paris)</li>
-              <li>2 hours per month of direct senior engineer tuning &amp; new skills</li>
-              <li>10% dedicated to your selected Barcelona community pledge jar</li>
-            </ul>
-
-            <button type="button" class="btn btn-secondary btn-block" data-order="Managed Cloud Intelligence Retainer (€349/mo)">
-              Inquire About Fleet Retainer
+            <button type="button" class="btn btn-secondary btn-block" data-checkout="cluster-sprint">
+              Inquire About Cluster (€650+)
             </button>
           </div>
 
@@ -655,12 +657,12 @@
               <span class="roi-stat-num" id="roi-current-drag">€1,800 / mo</span>
             </div>
             <div class="roi-stat-row">
-              <span class="roi-stat-lbl">Amortized taller.sh System Cost</span>
-              <span class="roi-stat-num" style="color: var(--text-muted);">€280 / mo</span>
+              <span class="roi-stat-lbl">taller.sh Starter Maintenance</span>
+              <span class="roi-stat-num" style="color: var(--text-muted);">€50 / mo</span>
             </div>
             <div class="roi-stat-row">
               <span class="roi-stat-lbl">Net Monthly Operational Savings</span>
-              <span class="roi-stat-num highlight" id="roi-net-savings">€1,520 / mo</span>
+              <span class="roi-stat-num highlight" id="roi-net-savings">€1,750 / mo</span>
             </div>
             <div class="roi-stat-row">
               <span class="roi-stat-lbl">Annual Hours Reclaimed</span>
@@ -857,7 +859,7 @@
       </div>
       <nav class="footer-nav">
         <a href="#blueprints">Blueprints</a>
-        <a href="#custom-sprints">Custom Sprints</a>
+        <a href="#pricing">Pricing &amp; Plans</a>
         <a href="#architecture">How It Works</a>
         <a href="/manifesto">Manifesto</a>
         <a href="#privacy">Privacy</a>

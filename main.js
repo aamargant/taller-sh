@@ -26,6 +26,9 @@ const PAYMENT_CONFIG = {
     "koi-kds": "https://buy.stripe.com/test_koi_kds",
     "content-factory": "https://buy.stripe.com/test_content_factory",
     "blueprint-deploy-upsell": "https://buy.stripe.com/test_upsell_450",
+    "starter-rig": "https://buy.stripe.com/test_starter_rig_200",
+    "extra-workflow": "https://buy.stripe.com/test_extra_workflow_200",
+    "cluster-sprint": "https://buy.stripe.com/test_cluster_650",
     "done-for-you-sprint": "https://buy.stripe.com/test_integration_650",
     "sovereign-sprint": "https://buy.stripe.com/test_sprint_2800"
   }
@@ -542,6 +545,18 @@ function initCheckoutModal() {
       currentPrice = customPrice;
       currentFile = null;
       currentFilename = null;
+    } else if (productId === "starter-rig") {
+      currentTitle = "Local Starter Rig: Dedicated Server + 1 Workflow";
+      currentPrice = "€200 setup + €50/mo";
+      currentFile = null;
+    } else if (productId === "extra-workflow") {
+      currentTitle = "Workflow Expansion: Additional Operational Workflow";
+      currentPrice = "€200 setup + €25/mo";
+      currentFile = null;
+    } else if (productId === "cluster-sprint") {
+      currentTitle = "Dedicated Multi-Server Cluster";
+      currentPrice = "€650 setup";
+      currentFile = null;
     } else if (productId === "done-for-you-sprint") {
       currentTitle = "Done-For-You Blueprint Integration Sprint";
       currentPrice = "€650";
@@ -718,8 +733,8 @@ function initRoiCalculator() {
 
     const monthlyHours = hours * 4.33;
     const monthlyDrag = Math.round(monthlyHours * rate);
-    const sprintAmortizedCost = 280;
-    const monthlyNet = Math.max(0, monthlyDrag - sprintAmortizedCost);
+    const maintenanceCost = 50; // taller.sh Starter Rig monthly maintenance
+    const monthlyNet = Math.max(0, monthlyDrag - maintenanceCost);
     const annualHours = Math.round(hours * 50);
 
     currentDrag.textContent = `€${monthlyDrag.toLocaleString()} / mo`;

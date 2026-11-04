@@ -49,7 +49,7 @@ Unlike traditional software agencies that put you through multi-week sales prese
 
 If this is a clean fit for an autonomous runtime, we will reply within 4 business hours with an initial architecture breakdown and deployment timeline.
 
-If you have urgent questions or want to send additional process documentation, simply reply directly to this thread or ping our engineering desk on WhatsApp: https://wa.me/34689788390
+If you have urgent questions or want to send additional process documentation, simply reply directly to this thread (hi@arnau.dev) or ping our engineering desk on WhatsApp: https://wa.me/34675758959
 
 Best,
 taller.sh Engineering Team

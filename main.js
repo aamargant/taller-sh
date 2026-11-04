@@ -1,8 +1,35 @@
 /**
- * taller.sh — Industrial Precision Architecture v17.0
+ * taller.sh — Industrial Precision Architecture v18.0
  * Swiss Technical Grid / Sovereign Infrastructure Studio · Barcelona
- * Zero scroll hijacking. Pure native performance.
+ * Direct Contact: WhatsApp +34 675 758 959 | Email: hi@arnau.dev
+ * Multi-Tier Payment System: Stripe Checkout, SEPA B2B Invoicing & WhatsApp Orders
  */
+
+const PAYMENT_CONFIG = {
+  currency: "EUR",
+  contactPhone: "+34 675 758 959",
+  whatsappNumber: "34675758959",
+  email: "hi@arnau.dev",
+  companyName: "taller.sh",
+  bankDetails: {
+    beneficiary: "taller.sh — Sovereign Systems",
+    iban: "ES76 2100 0418 4502 0005 1294",
+    bic: "CAIXESBBXXX",
+    bank: "CaixaBank Barcelona",
+    referencePrefix: "TALLER-"
+  },
+  // Configurable Stripe Hosted Checkout / Payment Links
+  stripeLinks: {
+    "bare-metal-vps": "https://buy.stripe.com/test_bare_metal_vps",
+    "clinic-booking": "https://buy.stripe.com/test_clinic_booking",
+    "agent-deck": "https://buy.stripe.com/test_agent_deck",
+    "koi-kds": "https://buy.stripe.com/test_koi_kds",
+    "content-factory": "https://buy.stripe.com/test_content_factory",
+    "blueprint-deploy-upsell": "https://buy.stripe.com/test_upsell_450",
+    "done-for-you-sprint": "https://buy.stripe.com/test_integration_650",
+    "sovereign-sprint": "https://buy.stripe.com/test_sprint_2800"
+  }
+};
 
 const BLUEPRINTS = {
   "bare-metal-vps": {
@@ -11,10 +38,13 @@ const BLUEPRINTS = {
     formula: "Deploy a hardened Linux cloud server with Traefik v3, automated SSL, and nightly encrypted snapshots in 15 minutes—without AWS complexity or bill shock.",
     stack: "DOCKER COMPOSE / TRAEFIK V3 / SYSTEMD",
     licensePrice: "€49",
+    priceNum: 49,
     category: "infra",
     timeSaved: "8 hrs / setup",
     upsellText: "Don't want to set this up yourself? Get it deployed on your servers in 48 hours for €450.",
     upsellTopic: "VPS Stack Turnkey Deployment (€450 / 48h)",
+    downloadFile: "/blueprints/bare-metal-vps-compose.yaml",
+    filename: "bare-metal-vps-compose.yaml",
     files: ["compose.yaml", "backup.sh", "systemd.service", ".env.example", "README.md"],
     bundleIncludes: [
       "Production-ready compose.yaml with Traefik v3 reverse proxy & automatic Let's Encrypt TLS",
@@ -33,7 +63,7 @@ const BLUEPRINTS = {
       - "--entrypoints.web.address=:80"
       - "--entrypoints.websecure.address=:443"
       - "--certificatesresolvers.letsencrypt.acme.tlschallenge=true"
-      - "--certificatesresolvers.letsencrypt.acme.email=admin@taller.sh"
+      - "--certificatesresolvers.letsencrypt.acme.email=hi@arnau.dev"
       - "--certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json"
     ports:
       - "80:80"
@@ -55,10 +85,13 @@ networks:
     formula: "Eliminate appointment no-shows with 24h & 2h WhatsApp reminders, automated rescheduling, and real-time waitlist cascading—without Zapier fees or HIPAA/GDPR leaks.",
     stack: "N8N / POSTGRESQL / WHATSAPP API",
     licensePrice: "€49",
+    priceNum: 49,
     category: "workflows",
     timeSaved: "14 hrs / week",
     upsellText: "Don't want to wire the APIs yourself? Get it customized and live in 72 hours for €650.",
     upsellTopic: "Clinic Reminder Engine Deployment (€650 / 72h)",
+    downloadFile: "/blueprints/clinic-booking-reminder.json",
+    filename: "clinic-booking-reminder.json",
     files: ["clinic-reminder-workflow.json", "schema.sql", "config.env.example", "README.md"],
     bundleIncludes: [
       "Production n8n workflow JSON with schedule triggers and fallback error handling",
@@ -103,10 +136,13 @@ networks:
     formula: "Coordinate multiple background autonomous CLI agents (AGY CLI, Claude Code, custom workers) in isolated PTY terminals with SQLite token accounting—without flaky browser wrappers.",
     stack: "RUST / TOKIO / SQLITE / CROSSTERM",
     licensePrice: "€49",
+    priceNum: 49,
     category: "workflows",
     timeSaved: "20 hrs / sprint",
     upsellText: "Need custom tool harnesses integrated? Let us build your CLI agent harness for €850.",
     upsellTopic: "Custom CLI Agent Harness Integration (€850)",
+    downloadFile: "/blueprints/agent-deck-blueprint.rs",
+    filename: "agent-deck-blueprint.rs",
     files: ["Cargo.toml", "src/main.rs", "src/agent/pty.rs", "src/telemetry.rs", "README.md"],
     bundleIncludes: [
       "Complete Rust repository with Tokio async runtime and Crossterm terminal UI",
@@ -148,10 +184,13 @@ async fn main() -> anyhow::Result<()> {
     formula: "Real-time kitchen & order fulfillment display with SQLite idempotency, Server-Sent Events, and customer SMS alerts—without dropped orders or proprietary tablet locks.",
     stack: "NODE.JS / SQLITE / SSE / DOCKER",
     licensePrice: "€49",
+    priceNum: 49,
     category: "infra",
     timeSaved: "10 hrs / week",
     upsellText: "Need this deployed on in-store hardware? We provision and ship turn-key for €750.",
     upsellTopic: "KDS Hardware & Cloud Turnkey Setup (€750)",
+    downloadFile: "/blueprints/koi-kds-blueprint.js",
+    filename: "koi-kds-blueprint.js",
     files: ["server.js", "database.js", "webhook.json", "compose.yaml", "README.md"],
     bundleIncludes: [
       "Zero-latency Node.js server with SQLite write-ahead logging (WAL) mode",
@@ -192,10 +231,13 @@ broadcastSSE({ type: "NEW_ORDER", orderId, estimatedWait });`
     formula: "Monitor industry feeds, deduplicate articles in PostgreSQL, generate structured executive briefs, and publish—without manual research or hallucinated drafts.",
     stack: "POSTGRESQL / N8N / OPENROUTER",
     licensePrice: "€49",
+    priceNum: 49,
     category: "workflows",
     timeSaved: "12 hrs / week",
     upsellText: "Want custom scraper feeds and private fine-tunes? Deployed for your firm in 48h for €550.",
     upsellTopic: "Custom Content Pipeline Deployment (€550 / 48h)",
+    downloadFile: "/blueprints/content-factory-blueprint.json",
+    filename: "content-factory-blueprint.json",
     files: ["content-blueprint.json", "dedup-schema.sql", "tenant-router.js", "README.md"],
     bundleIncludes: [
       "Production n8n workflow JSON with cron polling and LLM summarization chaining",
@@ -283,6 +325,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initArchitectureDiagram();
   initBlueprintTabs();
   initBlueprintModal();
+  initCheckoutModal();
   initImpactSelector();
   initRoiCalculator();
   initIntakeModal();
@@ -439,10 +482,9 @@ function initBlueprintModal() {
 
   if (buyBtn) {
     buyBtn.addEventListener("click", () => {
-      const bp = BLUEPRINTS[activeBlueprintId];
       closeModal();
-      if (bp) {
-        openWhatsAppConsultation(`Purchase Architecture License: ${bp.title} (${bp.licensePrice})`);
+      if (window.openCheckout) {
+        window.openCheckout(activeBlueprintId);
       }
     });
   }
@@ -452,10 +494,10 @@ function initBlueprintModal() {
       const bp = BLUEPRINTS[activeBlueprintId];
       closeModal();
       if (bp) {
-        if (window.openIntakeModal) {
+        if (window.openCheckout) {
+          window.openCheckout("blueprint-deploy-upsell", `Turnkey Deployment: ${bp.title}`, "€450");
+        } else if (window.openIntakeModal) {
           window.openIntakeModal(bp.upsellTopic || `Turnkey Deployment: ${bp.title} (€450)`);
-        } else {
-          openWhatsAppConsultation(`Turnkey Deployment: ${bp.title} (€450)`);
         }
       }
     });
@@ -463,7 +505,170 @@ function initBlueprintModal() {
 }
 
 /* ==========================================================================
-   4. IMPACT JARS SELECTOR
+   4. INTEGRATED PAYMENT & CHECKOUT SYSTEM (STRIPE / SEPA / WHATSAPP)
+   ========================================================================== */
+function initCheckoutModal() {
+  const checkoutModal = document.getElementById("checkout-modal");
+  const checkoutCloseBtn = document.getElementById("checkout-close-btn");
+  const checkoutItemTitle = document.getElementById("checkout-item-title");
+  const checkoutItemPrice = document.getElementById("checkout-item-price");
+  const checkoutItemSub = document.getElementById("checkout-item-sub");
+  const checkoutStripeBtn = document.getElementById("checkout-stripe-btn");
+  const checkoutWaBtn = document.getElementById("checkout-wa-btn");
+  const checkoutSepaRef = document.getElementById("checkout-sepa-ref");
+  const checkoutDownloadArea = document.getElementById("checkout-download-area");
+  const checkoutDownloadBtn = document.getElementById("checkout-download-link");
+  const checkoutDownloadFilename = document.getElementById("checkout-download-filename");
+
+  let currentCheckoutId = "bare-metal-vps";
+  let currentTitle = "15-Minute Production VPS Stack";
+  let currentPrice = "€49";
+  let currentFile = "/blueprints/bare-metal-vps-compose.yaml";
+  let currentFilename = "bare-metal-vps-compose.yaml";
+
+  if (!checkoutModal) return;
+
+  function openCheckout(productId, customTitle, customPrice) {
+    currentCheckoutId = productId || "bare-metal-vps";
+    const bp = BLUEPRINTS[currentCheckoutId];
+
+    if (bp) {
+      currentTitle = bp.title;
+      currentPrice = bp.licensePrice;
+      currentFile = bp.downloadFile;
+      currentFilename = bp.filename;
+    } else if (customTitle && customPrice) {
+      currentTitle = customTitle;
+      currentPrice = customPrice;
+      currentFile = null;
+      currentFilename = null;
+    } else if (productId === "done-for-you-sprint") {
+      currentTitle = "Done-For-You Blueprint Integration Sprint";
+      currentPrice = "€650";
+      currentFile = null;
+    } else if (productId === "sovereign-sprint") {
+      currentTitle = "14-Day Sovereign Architecture Sprint";
+      currentPrice = "€2,800";
+      currentFile = null;
+    } else {
+      currentTitle = customTitle || "Custom Architecture Package";
+      currentPrice = customPrice || "€49";
+      currentFile = null;
+    }
+
+    if (checkoutItemTitle) checkoutItemTitle.textContent = currentTitle;
+    if (checkoutItemPrice) checkoutItemPrice.textContent = currentPrice;
+    if (checkoutItemSub) {
+      checkoutItemSub.textContent = currentFile 
+        ? "Commercial License · Instant Digital Source Code & Walkthrough" 
+        : "Fixed-Scope Engineering Sprint · Dedicated Sovereign Architecture";
+    }
+
+    // Generate deterministic reference for SEPA wire
+    const refCode = `${PAYMENT_CONFIG.bankDetails.referencePrefix}${currentCheckoutId.slice(0, 4).toUpperCase()}-${Math.floor(1000 + Math.random() * 9000)}`;
+    if (checkoutSepaRef) checkoutSepaRef.textContent = refCode;
+
+    // Reset download area
+    if (checkoutDownloadArea) checkoutDownloadArea.style.display = "none";
+
+    // Set buttons
+    if (checkoutStripeBtn) {
+      checkoutStripeBtn.textContent = `Pay ${currentPrice} with Card / Apple Pay →`;
+    }
+
+    checkoutModal.classList.add("open");
+    checkoutModal.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+  }
+
+  window.openCheckout = openCheckout;
+
+  function closeCheckout() {
+    checkoutModal.classList.remove("open");
+    checkoutModal.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+  }
+
+  if (checkoutCloseBtn) checkoutCloseBtn.addEventListener("click", closeCheckout);
+  checkoutModal.addEventListener("click", e => {
+    if (e.target === checkoutModal) closeCheckout();
+  });
+
+  document.addEventListener("keydown", e => {
+    if (e.key === "Escape" && checkoutModal.classList.contains("open")) {
+      closeCheckout();
+    }
+  });
+
+  // Bind all checkout trigger buttons
+  document.querySelectorAll("[data-checkout]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const id = btn.dataset.checkout;
+      const customTitle = btn.dataset.title;
+      const customPrice = btn.dataset.price;
+      openCheckout(id, customTitle, customPrice);
+    });
+  });
+
+  // Tab switching inside checkout modal
+  const checkoutTabs = document.querySelectorAll(".checkout-tab-btn");
+  const checkoutPanels = document.querySelectorAll(".checkout-panel");
+  checkoutTabs.forEach(tab => {
+    tab.addEventListener("click", () => {
+      const target = tab.dataset.method;
+      checkoutTabs.forEach(t => t.classList.remove("active"));
+      tab.classList.add("active");
+      checkoutPanels.forEach(p => {
+        p.classList.toggle("active", p.id === `checkout-method-${target}`);
+      });
+    });
+  });
+
+  // Action 1: Stripe Checkout
+  if (checkoutStripeBtn) {
+    checkoutStripeBtn.addEventListener("click", () => {
+      const stripeUrl = PAYMENT_CONFIG.stripeLinks[currentCheckoutId];
+      if (stripeUrl && !stripeUrl.includes("test_")) {
+        window.open(stripeUrl, "_blank", "noopener");
+      } else {
+        // Unlock instant demo download state
+        if (checkoutDownloadArea && currentFile) {
+          checkoutDownloadArea.style.display = "block";
+          if (checkoutDownloadFilename) checkoutDownloadFilename.textContent = currentFilename;
+          if (checkoutDownloadBtn) {
+            checkoutDownloadBtn.setAttribute("href", currentFile);
+            checkoutDownloadBtn.setAttribute("download", currentFilename);
+          }
+          checkoutStripeBtn.textContent = "✓ Checkout Simulated · Asset Unlocked Below";
+          checkoutStripeBtn.style.backgroundColor = "var(--accent-emerald)";
+        } else {
+          // If custom sprint, open WhatsApp with order pre-filled
+          openWhatsAppCheckout(currentTitle, currentPrice);
+          closeCheckout();
+        }
+      }
+    });
+  }
+
+  // Action 2: Direct WhatsApp Checkout Button
+  if (checkoutWaBtn) {
+    checkoutWaBtn.addEventListener("click", () => {
+      openWhatsAppCheckout(currentTitle, currentPrice);
+      closeCheckout();
+    });
+  }
+
+  function openWhatsAppCheckout(title, price) {
+    const jarLabel = IMPACT_JARS[currentJar] || "Apprentice Workshop Toolsets";
+    const text = encodeURIComponent(
+      `Hello taller.sh workshop crew (+34 675 758 959), I want to purchase: ${title} (${price}). My selected 10% community pledge project is: ${jarLabel}. Please provide invoice and payment link.`
+    );
+    window.open(`https://wa.me/${PAYMENT_CONFIG.whatsappNumber}?text=${text}`, "_blank", "noopener");
+  }
+}
+
+/* ==========================================================================
+   5. IMPACT JARS SELECTOR
    ========================================================================== */
 function initImpactSelector() {
   const jarCards = document.querySelectorAll(".impact-jar-card");
@@ -491,7 +696,7 @@ function initImpactSelector() {
 }
 
 /* ==========================================================================
-   5. ROI / TIME RECOVERY CALCULATOR (Swiss Technical Grid)
+   6. ROI / TIME RECOVERY CALCULATOR (Swiss Technical Grid)
    ========================================================================== */
 function initRoiCalculator() {
   const hoursSlider = document.getElementById("roi-hours-slider");
@@ -513,7 +718,7 @@ function initRoiCalculator() {
 
     const monthlyHours = hours * 4.33;
     const monthlyDrag = Math.round(monthlyHours * rate);
-    const sprintAmortizedCost = 280; // Estimated amortized monthly cost of custom sprint
+    const sprintAmortizedCost = 280;
     const monthlyNet = Math.max(0, monthlyDrag - sprintAmortizedCost);
     const annualHours = Math.round(hours * 50);
 
@@ -530,13 +735,13 @@ function initRoiCalculator() {
 function openWhatsAppConsultation(topic) {
   const jarLabel = IMPACT_JARS[currentJar] || "Apprentice Workshop Toolsets";
   const text = encodeURIComponent(
-    `Hello taller.sh workshop crew, I am interested in: ${topic}. My selected 10% community pledge initiative is: ${jarLabel}.`
+    `Hello taller.sh workshop crew (+34 675 758 959), I am interested in: ${topic}. My selected 10% community pledge initiative is: ${jarLabel}.`
   );
-  window.open(`https://wa.me/34689788390?text=${text}`, "_blank", "noopener");
+  window.open(`https://wa.me/${PAYMENT_CONFIG.whatsappNumber}?text=${text}`, "_blank", "noopener");
 }
 
 /* ==========================================================================
-   6. RAPID INTAKE MODAL & CUSTOM SPRINT ORDER HANDLER
+   7. RAPID INTAKE MODAL & SCOPE HANDLER
    ========================================================================== */
 let activeIntakeTopic = "14-Day Sovereign Architecture Sprint (€2,800)";
 
@@ -634,20 +839,20 @@ function initIntakeModal() {
       const notesVal = document.getElementById("intake-notes")?.value.trim() || "";
       const jarLabel = IMPACT_JARS[currentJar] || "Apprentice Workshop Toolsets";
 
-      let text = `Hello taller.sh crew, I want to book: ${activeIntakeTopic}. Primary operational bottleneck: ${selectedBottleneck}.`;
+      let text = `Hello taller.sh crew (+34 675 758 959), I want to book: ${activeIntakeTopic}. Primary operational bottleneck: ${selectedBottleneck}.`;
       if (contactVal) text += ` Contact: ${contactVal}.`;
       if (notesVal) text += ` Scope notes: ${notesVal}.`;
       text += ` Community pledge: ${jarLabel}.`;
 
-      window.open(`https://wa.me/34689788390?text=${encodeURIComponent(text)}`, "_blank", "noopener");
+      window.open(`https://wa.me/${PAYMENT_CONFIG.whatsappNumber}?text=${encodeURIComponent(text)}`, "_blank", "noopener");
       closeIntake();
     });
   }
 }
 
 /* ==========================================================================
-   7. MOBILE NAVIGATION & DRAWER
-   ========================================================================== */
+   8. MOBILE NAVIGATION & DRAWER
+   ========================================================================= */
 function initMobileMenu() {
   const toggleBtn = document.getElementById("mobile-menu-toggle");
   const navMenu = document.querySelector(".nav-menu");
@@ -670,7 +875,7 @@ function initMobileMenu() {
 }
 
 /* ==========================================================================
-   8. MOTION & SCROLL REVEALS
+   9. MOTION & SCROLL REVEALS
    ========================================================================== */
 function initScrollMotion() {
   const targets = document.querySelectorAll(
